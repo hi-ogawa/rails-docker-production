@@ -1,0 +1,23 @@
+version: "2"
+
+services:
+  build:
+    build:
+      context: ../../
+      dockerfile: ./scripts/deployment/Dockerfile.build
+    working_dir: /app
+    environment:
+      - BUNDLE_PATH=/bundle
+    volumes:
+      - ../../:/app
+      - ./build:/build
+      - bundle_v:/bundle
+
+  dist:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.dist
+    image: hiogawa/rails-docker-production
+
+volumes:
+  bundle_v:

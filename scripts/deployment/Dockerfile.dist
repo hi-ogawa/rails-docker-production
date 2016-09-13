@@ -1,0 +1,15 @@
+FROM ruby:2.3
+
+RUN apt-get update && apt-get install -y \
+      nodejs rsync
+
+RUN mkdir -p /build /app /bundle
+COPY build /build
+RUN tar -xzf /build/bundle.tar.gz -C /
+RUN tar -xzf /build/app.tar.gz -C /
+
+WORKDIR /app
+ENV BUNDLE_PATH /bundle
+# only for persisting group setting
+RUN bundle install --without development test
+CMD bundle exec rails s -b 0.0.0.0

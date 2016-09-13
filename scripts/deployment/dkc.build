@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec docker-compose -p rdp-deployment -f scripts/deployment/docker-compose.build.yml $@

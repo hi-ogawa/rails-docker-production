@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+  rails:
+    image: hiogawa/rails-docker-production
+    ports:
+      - 80:80
+    env_file: env.rails
+
+  mysql:
+    image: mysql:5.7
+    env_file: env.mysql
+    volumes:
+      - mysql_v:/var/lib/mysql
+
+volumes:
+  mysql_v:

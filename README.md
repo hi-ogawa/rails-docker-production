@@ -1,24 +1,37 @@
-# README
+# Rails on production with Docker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development
 
-Things you may want to cover:
+```
+$ ./scripts/development/dkc up -d
+$ ./scripts/development/dkc exec rails bash
+$# bin/rake db:create db:migrate
+$# bin/rails s -b 0.0.0.0
+```
 
-* Ruby version
+## Deployment (locally)
 
-* System dependencies
+```
+$ ./scripts/deployment/dkc.build run --rm build
+$ ./scripts/deployment/dkc.build build dist
+$ ./scripts/deployment/dkc.run up -d
+$ ./scripts/deployment/dkc.run exec rails bash
+$# bundle exec rake db:migrate
+```
 
-* Configuration
+## TODOs
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- use vagrant and imitate remote host
+  - ssh with ansible or capistrano
+    - capistrano should work (or with some patching)
+- staging environment
+- versioning and rollback deploy
+  - add hash to production image
+  - keep certain number of production images
+- nginx/haproxy reverse proxy
+  - serve static assets from nginx
+- rolling update (zero downtime)
+- mysql backup
+- diagnose on production
+  - rails console
+  - logging

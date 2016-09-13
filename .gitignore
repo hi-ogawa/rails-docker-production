@@ -4,3 +4,10 @@
 !/tmp/.keep
 
 .byebug_history
+
+public/assets
+
+# production build/credentials
+scripts/deployment/build
+scripts/deployment/env.rails
+scripts/deployment/env.mysql

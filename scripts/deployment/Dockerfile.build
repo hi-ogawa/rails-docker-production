@@ -1,0 +1,9 @@
+FROM ruby:2.3
+
+RUN apt-get update && apt-get install -y \
+      nodejs rsync
+
+CMD bundle install --without development test && \
+    bundle exec rake assets:precompile RAILS_ENV=production && \
+    tar --exclude-vcs --exclude=scripts -czf /build/app.tar.gz -C / app && \
+    tar --exclude-vcs --exclude=scripts -czf /build/bundle.tar.gz -C / bundle

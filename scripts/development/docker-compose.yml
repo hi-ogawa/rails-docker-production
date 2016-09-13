@@ -1,0 +1,28 @@
+version: "2"
+
+services:
+  rails:
+    build:
+      context: ../../
+      dockerfile: ./scripts/development/Dockerfile.dev
+    command: sleep inf
+    ports:
+      - 3002:3000
+    working_dir: /app
+    environment:
+      - BUNDLE_PATH=/bundle
+    volumes:
+      - ../../:/app
+      - bundle_v:/bundle
+      - ~/.ssh:/root/.ssh
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - mysql_v:/var/lib/mysql
+
+volumes:
+  bundle_v:
+  mysql_v:
