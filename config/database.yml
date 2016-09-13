@@ -1,0 +1,23 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  collation: utf8mb4_bin
+  pool: 5
+  username: root
+  password:
+  host: mysql
+  socket: /tmp/mysql.sock
+
+development:
+  <<: *default
+  database: rdp_dev
+
+test:
+  <<: *default
+  database: rdp_test
+
+production:
+  <<: *default
+  database: <%= ENV['DATABASE_DBNAME'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
