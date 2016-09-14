@@ -1,7 +1,7 @@
 FROM ruby:2.3
 
 RUN apt-get update && apt-get install -y \
-      nodejs rsync
+      nodejs
 
 RUN mkdir -p /build /app /bundle
 COPY build /build
