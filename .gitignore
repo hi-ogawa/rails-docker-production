@@ -11,3 +11,5 @@ public/assets
 scripts/deployment/build
 scripts/deployment/env.rails
 scripts/deployment/env.mysql
+scripts/deployment/.vagrant
+scripts/deployment/image.tar

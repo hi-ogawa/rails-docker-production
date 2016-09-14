@@ -27,15 +27,10 @@ $# bundle exec rake db:migrate
 $ VAGRANT_CWD=./scripts/deployment vagrant up
 ```
 
-
 - Boostrap
 
 ```
-$ ./scripts/deployment/dkc.build run --rm build
-$ ./scripts/deployment/dkc.build build dist
-$ docker save hiogawa/rails-docker-production -o ./scripts/deployment/image.tar
-$ ./scripts/development/dkc run --rm rails bash
-$# bundle exec cap production docker_deploy:bootstrap
+$ ./scripts/deployment/bootstrap.sh
 ```
 
 Then, visit http://192.168.33.10/high_scores.
@@ -43,11 +38,17 @@ Then, visit http://192.168.33.10/high_scores.
 - Update
 
 ```
-$ ./scripts/deployment/dkc.build run --rm build
-$ ./scripts/deployment/dkc.build build dist
-$ docker save hiogawa/rails-docker-production -o ./scripts/deployment/image.tar
-$ ./scripts/development/dkc run --rm rails bash
-$# bundle exec cap production docker_deploy:update
+$ ./scripts/deployment/deploy.sh
+```
+
+Here is a result of `time`:
+
+```
+$ time ./scripts/deployment/deploy.sh
+...
+real	2m6.243s
+user	0m1.768s
+sys	0m3.840s
 ```
 
 ## Open `rails console`
