@@ -19,11 +19,51 @@ $ ./scripts/deployment/dkc.run exec rails bash
 $# bundle exec rake db:migrate
 ```
 
+## Deployment (on vagrant VM)
+
+- Prepare vagrant
+
+```
+$ VAGRANT_CWD=./scripts/deployment vagrant up
+```
+
+
+- Boostrap
+
+```
+$ ./scripts/deployment/dkc.build run --rm build
+$ ./scripts/deployment/dkc.build build dist
+$ docker save hiogawa/rails-docker-production -o ./scripts/deployment/image.tar
+$ ./scripts/development/dkc run --rm rails bash
+$# bundle exec cap production docker_deploy:bootstrap
+```
+
+Then, visit http://192.168.33.10/high_scores.
+
+- Update
+
+```
+$ ./scripts/deployment/dkc.build run --rm build
+$ ./scripts/deployment/dkc.build build dist
+$ docker save hiogawa/rails-docker-production -o ./scripts/deployment/image.tar
+$ ./scripts/development/dkc run --rm rails bash
+$# bundle exec cap production docker_deploy:update
+```
+
+## Open `rails console`
+
+After `ssh ubuntu@<vagrant ip>`,
+
+```
+$ cd ~/app
+$ docker-compose -f docker-compose.run.yml exec rails bin/rails c production
+> HighScore.count
+   (1.4ms)  SELECT COUNT(*) FROM `high_scores`
+=> 1
+```
+
 ## TODOs
 
-- use vagrant and imitate remote host
-  - ssh with ansible or capistrano
-    - capistrano should work (or with some patching)
 - staging environment
 - versioning and rollback deploy
   - add hash to production image
@@ -33,5 +73,4 @@ $# bundle exec rake db:migrate
 - rolling update (zero downtime)
 - mysql backup
 - diagnose on production
-  - rails console
   - logging
