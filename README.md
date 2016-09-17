@@ -69,9 +69,13 @@ $ docker-compose -f docker-compose.run.yml exec rails bin/rails c production
 - versioning and rollback deploy
   - add hash to production image
   - keep certain number of production images
+  - prepare `current_tag` file for persistence
+  - wrpper for docker-compose command to hide current_tag
 - nginx/haproxy reverse proxy
   - serve static assets from nginx
 - rolling update (zero downtime)
 - mysql backup
 - diagnose on production
   - logging
+- locally testable container management ui
+  - shipyard: https://shipyard-project.com/walkthrough/
