@@ -1,0 +1,9 @@
+FROM ruby:2.3.1-slim
+
+RUN apt-get update && apt-get install -y \
+      nodejs
+
+CMD bundle install --without development test && \
+    bundle exec rake assets:precompile && \
+    tar -czf /tar_archives/app.tar.gz -C / app && \
+    tar -czf /tar_archives/bundle.tar.gz -C / bundle

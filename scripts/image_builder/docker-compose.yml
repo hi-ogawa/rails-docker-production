@@ -1,0 +1,24 @@
+version: "2"
+
+services:
+  build:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.build
+    working_dir: /app
+    environment:
+      - BUNDLE_PATH=/bundle
+      - RAILS_ENV=production
+    volumes:
+      - ./source:/app
+      - ./tar_archives:/tar_archives
+      - bundle_v:/bundle
+
+  dist:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.dist
+    image: hiogawa/rails-docker-production:$IMAGE_TAG
+
+volumes:
+  bundle_v:
